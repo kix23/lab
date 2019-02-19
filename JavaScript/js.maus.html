@@ -1,0 +1,42 @@
+<html>
+<head>
+	<script type="text/javascript">
+	
+	var MausPosition = {x:0, y:0};
+	document.addEventListener('mousemove', function(MausStalker){
+		MausPosition.x = MausStalker.clientX;
+		MausPosition.y = MausStalker.clientY;
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value ="X: " + MausPosition.x + " Y: " + MausPosition.y + " ";
+	}, false);
+	addEventListener("mouseup", function(MausGeklickt){
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value ="Relax";
+		var audio = document.getElementById('MausDrueckLied')
+		//audio.pause();
+		audio.muted=true;
+		audio.playbackRate=1.2;
+	}, false);
+	addEventListener("mousedown", function(MausDruck){
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value = "Drueck";
+		var audio = document.getElementById('MausDrueckLied')
+		audio.play();
+		audio.loop=true;
+		audio.muted=false;
+	}, false);
+	addEventListener("contextmenu", function(MausRechtsDruck){
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value ="Mittelfinger"; 
+		window.oncontextmenu = function(){return false;}
+	}, false);
+
+	</script>
+</head>
+<body>
+	<input type="text" name="zeigx" id="zeigx" value="eins">
+<audio id="MausDrueckLied">
+   <source src="maus.mp3" type="audio/mpeg" />
+</audio>
+</body>
+</html>
