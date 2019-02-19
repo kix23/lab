@@ -13,9 +13,9 @@ for some things a browser is enough.
 
 ### Files
 
-#### JavaScript/js.maus.html
-show mouse position and try click listeners
-maus.mp3 belongs to this
+just have a look... some are funny.
+maybe i will add a discription later.
+
 
 
 

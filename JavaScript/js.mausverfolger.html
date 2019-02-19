@@ -1,0 +1,21 @@
+<html><head>
+<script type="text/javascript">
+
+var MausPosition = {x:0, y:0};
+	document.addEventListener('mousemove', function(MausStalker){
+	MausPosition.x = MausStalker.clientX;
+	MausPosition.y = MausStalker.clientY;
+	document.getElementById("box0").style.left=(MausPosition.x)+'px';
+   document.getElementById("box0").style.top=(MausPosition.y)+'px';
+}, false);
+</script>
+<style type="text/css">
+div { border:0px solid #888; color:#FFFFFF;font-family:Arial }
+#box0 { width:100px; height:100px; position:absolute; top:0px; left:0px; z-index:0;}
+</style>
+</head>
+<body>
+<div id="box0">
+	<span style="font-size:235px; font-family:Arial; color:#AAAAAA">&#9398;</span>
+</div>
+</body></html>

@@ -1,0 +1,121 @@
+<html>
+<head>
+</head>
+<body>
+<!-- Boxen -->
+<style type="text/css">
+	div { border:1px solid #888; color:#FFFFFF;font-family:Arial }
+	#farben { cursor: default;width:100px; height:200px; position:absolute; top:23px; left:23px; z-index:0;}
+	#pinsel { cursor: default;width:100px; height:200px; position:absolute; top:223px; left:23px; z-index:0;}
+	#leinwand { cursor: none;width:80%; height:90%; position:absolute; top:23px; left:123px; z-index:0;} }
+</style>
+
+<script type="text/javascript">
+	//Start Variablen
+	var MausPosition = {x:0, y:0}; // Mausposition
+	var Mausklick = false; // Maus gedrueckt?
+	var Punkte = ""; // Linienpfad
+	farbe="#000000"; // Startfarbe
+	pinsel="3"; // Pinselgroesse
+	Linie={}; // Linienobjekt
+	LinieNr=0; // Liniennummer
+ 	
+ 	function farbwahl(farbklick) { 
+ 		farbe=farbklick;
+ 		aktuelle_farbe=document.getElementById("aktuelle_farbe"); 
+ 		aktuelle_farbe.setAttribute('style',"fill:"+farbe+";stroke-width:1;stroke:#000000");
+ 	}
+ 	
+ 	function pinselwahl(pinselklick) { 
+ 		pinsel=pinselklick;
+ 		aktueller_pinsel=document.getElementById("aktueller_pinsel"); 
+ 		aktueller_pinsel.setAttribute('style',"fill:#000000;stroke-width:"+(15-pinsel)+";stroke:#ffffff");
+ 	}
+	window.addEventListener('mousemove', function(MausStalker){
+	
+		MausPosition.x = MausStalker.clientX-123;
+		MausPosition.y = MausStalker.clientY-23;
+		
+		//Mauszeiger
+		var PinselX = document.getElementById("PinselX");
+		PinselX.setAttribute("x1", MausPosition.x-23);
+		PinselX.setAttribute("x2", MausPosition.x+23);
+		PinselX.setAttribute("y1", MausPosition.y);
+		PinselX.setAttribute("y2", MausPosition.y);
+		var PinselY = document.getElementById("PinselY");
+		PinselY.setAttribute("x1", MausPosition.x);
+		PinselY.setAttribute("x2", MausPosition.x);
+		PinselY.setAttribute("y1", MausPosition.y-23);
+		PinselY.setAttribute("y2", MausPosition.y+23);
+		
+		//Malen
+		if(Mausklick==true) { Punkte=Punkte.concat(MausPosition.x + "," + MausPosition.y + " "); 
+			Linie.LinieNr = document.getElementById("linie"+LinieNr);
+			Linie.LinieNr.setAttribute("points", Punkte);
+			}
+		
+	}, false);
+	
+	//Neue Linie	
+	addEventListener("mousedown", function(MausDruck){
+	
+		LinieNr++;
+		Punkte = "";
+		Linie.LinieNr = document.getElementById("linie"+LinieNr);
+		Linie.LinieNr = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+		Linie.LinieNr.setAttribute('id', 'linie'+LinieNr);
+		Linie.LinieNr.setAttribute('points', MausPosition.x + "," + MausPosition.y + " ");
+		Linie.LinieNr.setAttribute("style", "fill:none;stroke:"+farbe+";stroke-width:"+pinsel+"");
+		svg=document.getElementById("svg");
+		svg.appendChild(Linie.LinieNr);
+		Linie = document.getElementById("linie"+LinieNr);
+		Mausklick = true;
+		
+	}, false);
+	
+	//Linie Fertig	
+	addEventListener("mouseup", function(MausGeklickt){
+
+		Mausklick = false;
+		
+	}, false);
+</script>
+	
+<!-- FarbpaletteSVG -->
+<div id="farben">
+	<span style="font-size:23px; font-family:Arial; color:#AAAAAA">Farbe:</span>
+	<svg id="farbe" width=80 height=150>
+  		<rect x="00" y="00" width="15" height="15" style="fill:#000000;stroke-width:1;stroke:#000000" onclick="farbwahl('#000000')"></rect>
+  		<rect x="15" y="00" width="15" height="15" style="fill:#ff0000;stroke-width:1;stroke:#000000" onclick="farbwahl('#ff0000')"></rect>
+  		<rect x="30" y="00" width="15" height="15" style="fill:#00ff00;stroke-width:1;stroke:#000000" onclick="farbwahl('#00ff00')"></rect>
+  		<rect x="45" y="00" width="15" height="15" style="fill:#0000ff;stroke-width:1;stroke:#000000" onclick="farbwahl('#0000ff')"></rect>
+  		<rect x="60" y="00" width="15" height="15" style="fill:#ffffff;stroke-width:1;stroke:#000000" onclick="farbwahl('#ffffff')"></rect>
+		
+		<rect id="aktuelle_farbe" x="23" y="23" width="23" height="23" style="fill:#000000;stroke-width:1;stroke:#ffffff"></rect>  		
+	</svg>
+</div>
+
+<div id="pinsel">
+	<span style="font-size:23px; font-family:Arial; color:#AAAAAA">Pinsel:</span>
+	<svg id="farbe" width=80 height=150>
+  		<rect x="00" y="00" width="15" height="15" style="fill:#000000;stroke-width:12;stroke:#ffffff" onclick="pinselwahl('03')"></rect>
+  		<rect x="15" y="00" width="15" height="15" style="fill:#000000;stroke-width:10;stroke:#ffffff" onclick="pinselwahl('05')"></rect>
+  		<rect x="30" y="00" width="15" height="15" style="fill:#000000;stroke-width:08;stroke:#ffffff" onclick="pinselwahl('07')"></rect>
+  		<rect x="45" y="00" width="15" height="15" style="fill:#000000;stroke-width:06;stroke:#ffffff" onclick="pinselwahl('09')"></rect>
+  		<rect x="60" y="00" width="15" height="15" style="fill:#000000;stroke-width:03;stroke:#ffffff" onclick="pinselwahl('12')"></rect>
+  
+		<rect id="aktueller_pinsel" x="23" y="23" width="15" height="15" style="fill:#000000;stroke-width:12;stroke:#ffffff"></rect>  		
+	</svg>
+</div>
+
+<div id="leinwand">
+	<svg id="svg">
+	<!-- MauszeigerSVG.start -->
+	  <line id="PinselX" x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(200,200,200);stroke-width:2" />
+	  <line id="PinselY" x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(200,200,200);stroke-width:2" />
+	<!-- MauszeigerSVG.ende -->
+	</svg>
+</div>
+
+</body>
+</html>

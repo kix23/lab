@@ -1,0 +1,53 @@
+<html>
+<head>
+	<script type="text/javascript">
+	
+	var MausPosition = {x:0, y:0};
+	var Punkte = "";
+	document.addEventListener('mousemove', function(MausStalker){
+		MausPosition.x = MausStalker.clientX;
+		MausPosition.y = MausStalker.clientY;
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value ="X: " + MausPosition.x + " Y: " + MausPosition.y + " ";
+		Punkte=Punkte.concat(MausPosition.x + "," + MausPosition.y + " ")
+	}, false);
+	addEventListener("mouseup", function(MausGeklickt){
+		var zeigx = document.getElementById("zeigx");
+		var MauseScheisse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+	MauseScheisse.setAttribute('cx', MausPosition.x);
+	MauseScheisse.setAttribute('cy', MausPosition.y);
+	MauseScheisse.setAttribute('r', '5');
+	MauseScheisse.setAttribute('fill', "red");
+	svg=document.getElementById("svg");
+	svg.appendChild(MauseScheisse);
+		zeigx.value ="Relax";
+	}, false);
+	addEventListener("mousedown", function(MausDruck){
+		var zeigx = document.getElementById("zeigx");
+		var MauseScheisse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+		MauseScheisse.setAttribute('cx', MausPosition.x);
+		MauseScheisse.setAttribute('cy', MausPosition.y);
+		MauseScheisse.setAttribute('r', '5');
+		MauseScheisse.setAttribute('fill', "green");
+		svg=document.getElementById("svg");
+		svg.appendChild(MauseScheisse);
+		zeigx.value ="Drueck";
+		var Linie = document.getElementById("linie");
+		
+		
+		Linie.setAttribute("points", Punkte);
+	}, false);
+	addEventListener("contextmenu", function(MausRechtsDruck){
+		var zeigx = document.getElementById("zeigx");
+		zeigx.value ="Mittelfinger"; 
+		window.oncontextmenu = function(){return false;} 
+	}, false);
+	</script>
+</head>
+<body>
+<svg width=100% height=100% id="svg">
+<polyline id="linie" points="20,20 40,25" style="fill:none;stroke:black;stroke-width:3" />
+</svg>
+	<input type="text" name="zeigx" id="zeigx" value="eins">
+</body>
+</html>

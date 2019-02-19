@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+	
+	var MausPosition = {x:0, y:0};
+	var Mausklick = false;
+	var Punkte = "";
+ 	Linie = document.getElementById("linie");
+	document.addEventListener('mousemove', function(MausStalker){
+		Linie = document.getElementById("linie");
+		MausPosition.x = MausStalker.clientX;
+		MausPosition.y = MausStalker.clientY;
+		if(Mausklick==true) { Punkte=Punkte.concat(MausPosition.x + "," + MausPosition.y + " "); }
+		Linie.setAttribute("points", Punkte);
+	}, false);
+	
+	addEventListener("mousedown", function(MausDruck){
+		Mausklick = true;
+	}, false);
+		
+	addEventListener("mouseup", function(MausGeklickt){
+		Mausklick = false;
+	}, false);
+	</script>
+<svg width=100% height=100%>
+<polyline id="linie" points="" style="fill:none;stroke:black;stroke-width:3" />
+</svg>
+</body>
+</html>
