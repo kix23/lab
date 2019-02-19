@@ -72,7 +72,7 @@ echo "Speichern geladen <hr>";
 		lade.send();
 		lade.onreadystatechange=function(){
 			if (lade.readyState==4 && lade.status==200){
-				var abzug=document.getElementById("svg").childNodes.length;
+				var abzug=document.getElementById("svg").childNodes.length; //der zählt ja die aktuellen nodes.. warum nochmal?
 				alert(document.getElementById("svg").childNodes.length);
 				bild=lade.responseText;
 				document.getElementById("svg").innerHTML+=bild;
