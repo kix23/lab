@@ -21,14 +21,14 @@ echo "Speichern geladen <hr>";
 	#pinsel 			{ cursor: default; width:100px; height:100px; position:absolute; top:223px; left:023px; z-index:0;}
 	#funktionen			{ cursor: default; width:100px; height:050px; position:absolute; top:323px; left:023px; z-index:0;}
 	#leinwand			{ cursor: none;    width:800px; height:600px; position:absolute; top:023px; left:123px; z-index:0;}
-	#dateifunktionen	{ cursor: default; width:100px; height:050px; position:absolute; top:375px; left:023px; z-index:0;}
+	#dateifunktionen		{ cursor: default; width:100px; height:050px; position:absolute; top:375px; left:023px; z-index:0;}
 </style>
 
 <script type="text/javascript">
 	//Start Variablen
 	var MausPosition 	={x:0, y:0}; // Mausposition
 	var Mausklick 		=false; // Maus gedrueckt?
-	var Punkte 			=""; // Linienpfad
+	var Punkte 		=""; // Linienpfad
 	
 	farbe		="#000000"; // Startfarbe
 	pinsel		="3"; // Pinselgroesse
@@ -64,6 +64,7 @@ echo "Speichern geladen <hr>";
 	}
 
 	function laden(){
+		aufanfang();
 		alert("Lade.");
 		lade=new XMLHttpRequest();
 		window.onunload = lade.abort ();
@@ -73,7 +74,7 @@ echo "Speichern geladen <hr>";
 		lade.onreadystatechange=function(){
 			if (lade.readyState==4 && lade.status==200){
 				var abzug=document.getElementById("svg").childNodes.length; //der zählt ja die aktuellen nodes.. warum nochmal?
-				alert(document.getElementById("svg").childNodes.length);
+				alert("Abzug"+abzug);
 				bild=lade.responseText;
 				document.getElementById("svg").innerHTML+=bild;
 				alert((((document.getElementById("svg").childNodes.length)-abzug)/2)); //hier stimmt was nicht
